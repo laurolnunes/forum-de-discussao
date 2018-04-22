@@ -1,0 +1,15 @@
+﻿@model Chatter.Application.ViewModels.TopicViewModel
+@{
+    var categories = new List<SelectListItem>()
+    {
+        new SelectListItem
+        {
+            Text = "Selecione...", Value = "", Selected = true
+        },
+        new SelectListItem
+        {
+            Text = "Categoria 1", Value = "1"
+        },
+    };
+}
+<select asp-for="CategoryId" asp-items="@categories" class="form-control"></select>

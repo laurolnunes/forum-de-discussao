@@ -1,0 +1,78 @@
+﻿@model Chatter.Application.ViewModels.DiscussionViewModel
+
+@{
+    ViewData["Title"] = "Discussão";
+}
+
+<h2>Discussão</h2>
+<form method="POST">
+    @Html.AntiForgeryToken()
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TopicViewModel.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TopicViewModel.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TopicViewModel.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TopicViewModel.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TopicViewModel.Created)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TopicViewModel.Created)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TopicViewModel.UserId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TopicViewModel.User.Name)
+            </dd>
+        </dl>
+    </div>
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model.PostsViewModel)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-4">
+            <vc:summary />
+            <input type="hidden" asp-for="ReplyViewModel.TopicId" />
+            <div class="form-group">
+                <label asp-for="ReplyViewModel.Text" class="control-label"></label>
+                <input asp-for="ReplyViewModel.Text" class="form-control" />
+                <span asp-validation-for="ReplyViewModel.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Voltar</a>
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

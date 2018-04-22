@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Chatter.Application.ViewModels.TopicViewModel>
+
+@{
+    ViewData["Title"] = "Tópicos";
+}
+
+<h2>Tópicos</h2>
+
+<p>
+    <a asp-action="Create">Criar Novo Tópico</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @item.Created.ToString("d")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    <a asp-action="Discussion" asp-route-id="@item.Id">Discussão</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

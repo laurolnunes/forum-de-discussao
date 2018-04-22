@@ -1,0 +1,33 @@
+﻿@model Chatter.Application.ViewModels.PostViewModel
+
+<form asp-action="Discussion" method="post" post-ajax="true">
+    @Html.AntiForgeryToken()
+    <vc:summary/>
+    <input type="hidden" asp-for="TopicId"/>
+    <div class="form-group">
+        <label asp-for="Text" class="control-label"></label>
+        <input asp-for="Text" class="form-control"/>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Enviar" class="btn btn-default"/>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("form").submit(function () {
+            alert(this.action);
+            $.ajax(
+                {
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize,
+                    success: function (result) {
+                        alert("ok");
+                    }
+                });
+            return false;
+        });
+    });
+</script>
